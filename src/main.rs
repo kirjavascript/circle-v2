@@ -1,8 +1,8 @@
-mod bytes;
+mod data;
 
 fn main(){
-    let a:&[u8]=bytes::BYTES; // __START_DATA__];
-    let r=21;
+    let a=data::DATA; // __START_DATA__";
+    let r=14;
     let mut g=vec![vec![' ';4*r+1];2*r+1];
 
     for y in 0..=r{
@@ -14,11 +14,10 @@ fn main(){
     }
 
     let mut f=g.iter().map(|r|r.iter().collect::<String>()).collect::<Vec<String>>().join("\n");
-    let s=" fn main(){{let q:&[u8]=&[";
-    let mut d=|c:char|{f=f.replacen('#',&c.to_string(),1)};
-    s.chars().for_each(&mut d);
-    a.iter().fold("".to_string(),|a,b|a+&format!("{:02},",b)).chars().for_each(&mut d);
-    a.iter().map(|b|{*b as char}).for_each(d);
-
+    let s=" fn main(){let a=\"";
+    let mut d=|s:&str|{f=f.replacen('#',s,1)};
+    s.chars().for_each(|c|d(&c.to_string()));
+    a.chars().for_each(|c|d(&c.to_string()));
+    a.chars().for_each(|c|if!c.is_whitespace(){d(&char::from_u32((c as u32)-200).unwrap().to_string())});
     println!("{f}");
 }
