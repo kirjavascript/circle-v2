@@ -1,10 +1,11 @@
 mod data;
-// 2F for / 23 for #
-// 50prepadding
+
+/// pad with {x:<502} to fix data size when adjusting
+// 562 works
 
 fn main(){
     let a=data::DATA; // __START_DATA__";
-    let r=13;
+    let r=14;
     let mut g=vec![vec![' ';4*r+1];2*r+1];
     let b='\u{2F}';
     for y in 0..=r-1{
@@ -17,7 +18,7 @@ fn main(){
 
     let mut f=g.iter().map(|r|r.iter().collect::<String>()).collect::<Vec<_>>().join("\n");
     let x:String=a.chars().filter(|c|c>&' ').collect();
-    let y:String=x.chars().map(|c|char::from_u32((c as u32)-200).unwrap()).collect();
-    for c in format!(" fn main(){{let a=\"{x:<502}{y}").chars(){f=f.replacen(b,&c.to_string(),1)}
+    let y: String =x.chars().map(|c|char::from_u32((c as u32)-200).unwrap()).collect();
+    for c in   format!(" fn main(){{let a=\"{x:<509}{y}").chars(){f = f.replacen(b, &c.to_string(),1)}
     println!("{f}");
 }
