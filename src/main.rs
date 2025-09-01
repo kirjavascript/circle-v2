@@ -16,7 +16,8 @@ fn main(){
     }
 
     let mut f=g.iter().map(|r|r.iter().collect::<String>()).collect::<Vec<_>>().join("\n");
-    let v=a.chars().flat_map(|c|(c>' ').then(||char::from_u32((c as u32)-200).unwrap())).collect::<String>();
-    for c in format!(" fn main(){{let a=\"{a:<505}{v}").chars(){f=f.replacen(b,&c.to_string(),1)}
+    let x:String=a.chars().filter(|c|c>&' ').collect();
+    let y:String=x.chars().map(|c|char::from_u32((c as u32)-200).unwrap()).collect();
+    for c in format!(" fn main(){{let a=\"{x:<500}{y}").chars(){f=f.replacen(b,&c.to_string(),1)}
     println!("{f}");
 }
